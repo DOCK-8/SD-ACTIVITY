@@ -5,31 +5,31 @@ setup: update-submodules | reinitialize-git
 
 build:
 	@echo "+\n++ Building images ...\n+"
-	@docker-compose build --parallel
+	@docker compose build --parallel
 
 run:
 	@echo "+\n++ Running client and server ...\n+"
-	@docker-compose up -d
+	@docker compose up
 
 run-server:
 	@echo "+\n++ Running server ...\n+"
-	@docker-compose up -d server
+	@docker compose up -d server
 
 stop:
 	@echo "+\n++ Stopping client and server ...\n+"
-	@docker-compose down -t 2
+	@docker compose down -t 2
 
 db-seed:
 	@echo "+\n++ Seeding database ...\n+"
-	@docker-compose run server python manage.py seed-db
+	@docker compose run server python manage.py seed-db
 
 server-test:
 	@echo "+\n++ Running server unit tests ...\n+"
-	@docker-compose run server python manage.py test
+	@docker compose run server python manage.py test
 
 client-test:
 	@echo "+\n++ Running client unit tests ...\n+"
-	@docker-compose run client npm test
+	@docker compose run client npm test
 
 clean:
 	@echo "+\n++ Removing containers, images, volumes etc...\n+"
