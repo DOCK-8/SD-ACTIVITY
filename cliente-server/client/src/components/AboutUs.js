@@ -42,6 +42,8 @@ export default class AboutUs extends React.Component {
         <h1>About Us</h1>
         {this.renderFetchedData()}
         <Link to="/">Go to Home</Link>
+        <br/>
+        <Link to="/login">login</Link>
       </div>
     );
   }

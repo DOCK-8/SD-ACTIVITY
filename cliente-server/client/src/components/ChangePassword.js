@@ -47,10 +47,10 @@ const ChangePassword = () => {
       setMessage("the passwords don't equals")
     }
     else{
-      if(localStorage.getItem("put-change") ===  true)
+      if(localStorage.getItem("put-change") === 'true')
         PutPassword(newPassword, setMessage);
       else
-        ChangePassword(newPassword, setMessage);
+        SavePassword(newPassword, setMessage);
     }
   };
 
