@@ -1,6 +1,39 @@
 import React, { useState } from "react";
 import Axios from "../apiClient/Axios";
 
+const PutPassword = (password, setMessage) => {
+  Axios.put(`/foo/${localStorage.getItem("id")}`, {
+    string_field: password,
+  })
+    .then((response) => {
+      setMessage("Cambio exitoso!");
+      console.log(response);
+    })
+    .catch((error) => {
+      setMessage("Hubo un error al cambiar la contraseña.");
+      console.error(error);
+    });
+};
+
+const SavePassword = (password, setMessage) => {
+  Axios.post(`/foo`, {
+    string_field: password,
+  })
+    .then((response) => {
+      setMessage("Contraseña guardada exitosamente.");
+      console.log(response);
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 400) {
+        setMessage("YA ESTÁ REGISTRADA esta contraseña");
+      } else {
+        setMessage("Error al guardar la contraseña.");
+      }
+      console.error(error);
+    });
+};
+
+
 const ChangePassword = () => {
   const [newPassword, setnewPassword] = useState("");
   const [repeatPassword, setrepeatPassword] = useState("");
@@ -10,18 +43,15 @@ const ChangePassword = () => {
     e.preventDefault();
     console.error(newPassword);
     console.error(repeatPassword);
-    // const response = Axios.get(`/foo/${username}`, {
-    //   username,
-    //   password,
-    // }) .then((response) => {
-    //   setMessage("Login successful!");
-    //   console.log(response);
-    //   response.string_field == password ? setMessage("Correct Password") : setMessage("Incorrect Password");
-    // })
-    // .catch((error) => {
-    //   setMessage("Login failed. Please check your credentials.");
-    //   console.error(error);
-    // });
+    if(newPassword != repeatPassword) {
+      setMessage("the passwords don't equals")
+    }
+    else{
+      if(localStorage.getItem("put-change") ===  true)
+        PutPassword(newPassword, setMessage);
+      else
+        ChangePassword(newPassword, setMessage);
+    }
   };
 
   return (
