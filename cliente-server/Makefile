@@ -6,7 +6,7 @@ install:
 
 restart:
 	@$(MAKE) stop
-	@$(MAKE)build
+	@$(MAKE) build
 	@$(MAKE) run
 
 clean-all:
